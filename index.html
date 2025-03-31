@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Design</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b9432683ac.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+<nav>
+    <div class="music-player">
+        <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angles-left"></i>
+            </div>
+            <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+        <img src="media/image.png"  class="song-img">
+        <h1>Say Yes To Heaven</h1>
+        <p>Lana Del Rey</p>
+
+        <audio id="song">
+            <source src="media/song 1.mp3" type="audio/mp3">
+        </audio>
+        <input type="range" value="0" id="progress">
+        <div class="controls">
+            <div><i class="fa-solid fa-backward"></i></div>
+            <div onclick="playpause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+            <div><i class="fa-solid fa-forward"></i></div>
+        </div>
+    </div>
+</div>
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let  ctrlIcon = document.getElementById("ctrlIcon");
+    song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }
+    function playpause(){
+        if(ctrlIcon.classList.contains("fa-pause")){
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+        }
+        else{
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+    }
+     if(song.play()){
+        setInterval(()=>{
+            progress.value = song.currentTime;
+        },500);
+     }
+     progress.onchange = function(){
+        song.play();
+        song.currentTime = progress.value;
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+     }
+</script>
+</body>
+</html>
